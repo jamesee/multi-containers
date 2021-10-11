@@ -3,7 +3,7 @@ services:
   postgres:
     image: "postgres:latest"
     environment:
-      - POSTGRES_PASSWORD=postgres_password
+      - POSTGRES_PASSWORD=password
   nginx:
     depends_on:
       - api
@@ -21,12 +21,14 @@ services:
     volumes:
       - /app/node_modules
       - ./server:/app
-    environment:
-      - PGUSER=postgres
-      - PGHOST=postgres
-      - PGDATABASE=postgres
-      - PGPASSWORD=postgres_password
-      - PGPORT=5432
+    env_file:
+      - ./server/.env
+    # environment:
+    #   - PGUSER=postgres
+    #   - PGHOST=postgres
+    #   - PGDATABASE=postgres
+    #   - PGPASSWORD=postgres_password
+    #   - PGPORT=5432
   client:
     stdin_open: true
     environment:

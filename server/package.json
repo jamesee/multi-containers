@@ -1,19 +1,40 @@
 {
-  "name": "server",
+  "name": "backenddev-hw-day2",
   "version": "1.0.0",
-  "description": "",
+  "description": "BackendDev Homeworks Day2",
   "main": "index.js",
-  "author": "Laszlo Leber (Codeching)",
-  "license": "ISC",
-  "dependencies": {
-    "express": "4.16.3",
-    "pg": "8.0.3",
-    "cors": "2.8.4",
-    "nodemon": "1.18.3",
-    "body-parser": "*"
-  },
   "scripts": {
-    "dev": "nodemon",
-    "start": "node index.js"
+    "activity1": "nodemon activity1/index.js",
+    "activity2": "nodemon activity2/index.js",
+    "activity5": "nodemon activity5-backend/index.js",
+    "db:migrate": "node scripts/migrate.js",
+    "dev": "nodemon index.js",
+    "start": "node index.js",
+    "prod": "cd activity5-frontend && npm run build && cd .. && node activity5-backend/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jamesee/BackendDev-hw-day2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jamesee/BackendDev-hw-day2/issues"
+  },
+  "homepage": "https://github.com/jamesee/BackendDev-hw-day2#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.13",
+    "pg": "^8.7.1",
+    "swagger-jsdoc": "^6.1.0",
+    "swagger-ui-express": "^4.1.6",
+    "yup": "^0.32.9"
   }
 }

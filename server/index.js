@@ -1,51 +1,25 @@
-const keys = require("./keys");
+require('dotenv').config()
+const App = require('./app')
+const Router = require('./routes')
+const AuthMiddleware = require('./middlewares/auth')
+const AuthService = require('./services/auth')
+const Controllers = require('./controllers')
+const Validations = require('./validations')
 
-// Express Application setup
-const express = require("express");
-const bodyParser = require("body-parser");
-const cors = require("cors");
+const db = require('./db')
+const schema = require('./dto')
+const ApiError = require('./errors/api-error')
 
-const app = express();
-app.use(cors());
-app.use(bodyParser.json());
+const authService = AuthService(db, ApiError)
+const authMiddleware = AuthMiddleware(authService, ApiError)
+const controllers = Controllers(db, authService, ApiError)
+const validateDto = Validations(schema)
+const router = Router(authMiddleware, validateDto, controllers)
+const app = App(router)
 
-// Postgres client setup
-const { Pool } = require("pg");
-const pgClient = new Pool({
-  user: keys.pgUser,
-  host: keys.pgHost,
-  database: keys.pgDatabase,
-  password: keys.pgPassword,
-  port: keys.pgPort
-});
 
-pgClient.on("connect", client => {
-  client
-    .query("CREATE TABLE IF NOT EXISTS values (number INT)")
-    .catch(err => console.log("PG ERROR", err));
-});
+const PORT = process.env.PORT || 3000
 
-//Express route definitions
-app.get("/", (req, res) => {
-  res.send("Hi");
-});
-
-// get the values
-app.get("/values/all", async (req, res) => {
-  const values = await pgClient.query("SELECT * FROM values");
-
-  res.send(values);
-});
-
-// now the post -> insert value
-app.post("/values", async (req, res) => {
-  if (!req.body.value) res.send({ working: false });
-
-  pgClient.query("INSERT INTO values(number) VALUES($1)", [req.body.value]);
-
-  res.send({ working: true });
-});
-
-app.listen(5000, err => {
-  console.log("Listening");
-});
+app.listen(PORT, () => {
+  console.log(`Listening on port ${PORT}`)
+})
