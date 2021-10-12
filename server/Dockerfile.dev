@@ -1,6 +1,8 @@
 FROM node:14.14.0-alpine
 WORKDIR /app
 COPY ./package.json ./
+COPY ./entrypoint.sh ./
 RUN npm i
 COPY . .
-CMD ["npm", "run", "dev"]
+# CMD ["npm", "run", "dev"]
+ENTRYPOINT ["/bin/sh", "./entrypoint.sh"]

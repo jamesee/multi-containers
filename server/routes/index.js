@@ -13,11 +13,13 @@ module.exports = (authMiddleware, validateDto, controllers) => {
 
 
   // Auth
+  // router.use('/api', require('./auth')(controllers, validateDto))
   router.use('/api', require('./auth')(controllers, validateDto))
 
 
   // All routes from this point will use the auth middleware
   router.use(authMiddleware)
+  // router.use('/api/user-details', require('./userDetails')(controllers, validateDto))
   router.use('/api/user-details', require('./userDetails')(controllers, validateDto))
 
 

@@ -30,7 +30,7 @@ if (process.env.MYHEROKU === "true") {
     pgPort: process.env.PGPORT
   })
 
-  console.debug(pool)
+  // console.debug(pool)
 }
 
 
@@ -43,10 +43,10 @@ db.initialise = async () => {
 
   // delete all tables
   // for development purpose
-  // await pool.query(`
-  //     DROP TABLE IF EXISTS user_details;
-  //     DROP TABLE IF EXISTS users;
-  //   `)
+  await pool.query(`
+      DROP TABLE IF EXISTS user_details;
+      DROP TABLE IF EXISTS users;
+    `)
 
   await pool.query(`
       CREATE TABLE IF NOT EXISTS Users (

@@ -2,7 +2,7 @@ module.exports = (service, ApiError) => {
   return (req, res, next) => {
     const authHeader = req.headers.authorization
     const token = authHeader && authHeader.split(' ')[1]
-    console.debug(`[middlewares] token: ${token}`)
+    // console.debug(`[middlewares] token: ${token}`)
     if (token) {
       const decoded = service.verifyToken(token)
       if (decoded !== null) {

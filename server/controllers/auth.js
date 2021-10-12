@@ -2,7 +2,7 @@ module.exports = (authService, ApiError) => {
   const controllers = {};
 
   controllers.register = async (req, res, next) => {
-    console.debug(`[controllers.register]`)
+    // console.debug(`[controllers.register]`)
     const { username, email, password } = req.body;
     const token = await authService.registerUser(username, email, password);
     if (token) {
@@ -14,7 +14,7 @@ module.exports = (authService, ApiError) => {
   };
 
   controllers.login = async (req, res, next) => {
-    console.debug(`[controllers.login]`)
+    // console.debug(`[controllers.login]`)
     const { email, password } = req.body;
     const token = await authService.loginUser(email, password);
     if (token) {
